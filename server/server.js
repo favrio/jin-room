@@ -18,7 +18,7 @@ const handleRequest = function (request, response) {
   // Render the single client html file for any request the HTTP server receives
   console.log("request received: " + request.url);
 
-  if (request.url === "/room") {
+  if (request.url.indexOf("/room")>-1) {
     response.writeHead(200, { "Content-Type": "text/html" });
     response.end(fs.readFileSync("client/room.html"));
   } else if (request.url === "/") {
