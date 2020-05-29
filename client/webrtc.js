@@ -14,6 +14,47 @@ var peerConnectionConfig = {
   ]
 };
 
+//Status constants
+var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
+var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
+ 
+//Websocket session 
+var session;
+ 
+//Init Flashphoner API on page load
+function init_api() {
+    Flashphoner.init({});
+}
+ 
+//Connect to WCS server over websockets
+function connect() {
+  document.getElementById('wrapper').className = 'inSharing'
+  document.getElementById('screen-sharing').style.display = 'block'
+    session = Flashphoner.createSession({
+        urlServer: "wss://demo.flashphoner.com"
+    }).on(SESSION_STATUS.ESTABLISHED, function(session) {
+        startStreaming(session);
+    });
+}
+ 
+//Publishing Share Screen 
+function startStreaming(session) {
+    var constraints = {
+        video: {
+            width: 640,
+            height: 480,
+            frameRate: 30
+        }
+    };
+    constraints.video.type = "screen";
+    constraints.video.withoutExtension = true;
+    session.createStream({
+        name: "mystream",
+        display: document.getElementById("screen-sharing"),
+        constraints: constraints
+    }).publish();
+}
+
 function pageReady() {
   uuid = createUUID();
   roomId = params.get('no')

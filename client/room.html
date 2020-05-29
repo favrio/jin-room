@@ -3,6 +3,7 @@
   <head>
     <meta charset=utf-8>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script type="text/javascript" src="https://flashphoner.com/downloads/builds/flashphoner_client/wcs_api-2.0/current/flashphoner.js"></script>
     <script src="webrtc.js"></script>
     <style>
       body {
@@ -14,40 +15,62 @@
         flex-direction: row;
         justify-content: space-between;
       }
+      #wrapper.inSharing {
+        justify-content: flex-start;
+      }
+      #screen-sharing {
+        width: 100%;
+        height: 500px;
+        display: none;
+        overflow: auto;
+      }
+      #screen-sharing video {
+        width: 100%;
+      }
       #remoteVideo, #localVideo {
-        width: 48%;
+        width: 49%;
         height: 500px;
         border-radius: 5px;
         background: #fff;
+        box-shadow: 0 0 5px #eaeaea;
       }
-      #start {
-        width: 100%;
+      .inSharing #remoteVideo,.inSharing #localVideo {
+        width: 150px;
+        height: 100px;
+      }
+      #start,#share-screen {
+        width: 200px;
         padding: 10px 0;
         font-size: 16px;
         color: #fff;
         border: none;
-        background-color: #1890ff;
+        background-color: rgb(24, 144, 255, 0.8);
         border-radius: 5px;
-        box-shadow: 0 2px 0 rgba(0,0,0,.045)
+        box-shadow: 0 2px 0 rgba(0,0,0,.045);
+        margin-left: 20px;
       }
       #setting {
-        text-align: center;
         padding: 20px 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
       }
       
     </style>
   </head>
 
-  <body>
+  <body onload="init_api()">
+    <div id="screen-sharing"></div>
     <div id="wrapper">
       <video id="localVideo" autoplay muted></video>
       <video id="remoteVideo" autoplay></video>
     </div>
     <div id="setting">
       <input type="button" id="start" onclick="start(true)" value="开始连线"></input>
+      <input type="button" id="share-screen" onclick="connect()" value="共享屏幕"/>
     </div>
     <script type="text/javascript">
-        pageReady();
+        // pageReady();
     </script>
   </body>
 </html>
