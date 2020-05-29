@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>小金视频营销</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .title {
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #ff8533;
+      }
+      .container {
+      }
+      .room-container {
+        width: 400px;
+        background-color: #f6f8fa;
+        border: 1px solid #d1d5da;
+        border-radius: 4px;
+        padding: 20px;
+      }
+      .join-room {
+        display: flex;
+      }
+      .join-room input {
+        flex: 1;
+        min-height: 30px;
+        border: 1px solid #e3e3e3;
+        margin-right: 10px;
+        padding: 0 4px;
+        border-radius: 4px;
+      }
+      .join-room button {
+        padding: 0 10px;
+      }
+      .block {
+      }
+      .block + .block {
+        margin-top: 20px;
+      }
+      .block-title {
+        margin-bottom: 10px;
+      }
+      .block-create button {
+        min-height: 30px;
+        padding: 0 10px;
+      }
+      .room-no-link {
+        margin: 20px 0;
+      }
+      #create-room-btn {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="title">小金视频营销</h1>
+      <div class="room-container">
+        <div class="block">
+          <h3 class="block-title">进入房间：</h3>
+          <div class="join-room">
+            <input
+              id="join-room-number"
+              type="text"
+              placeholder="请输入您想到达的房号"
+            />
+            <button id="join-btn" type="button">进入</button>
+          </div>
+        </div>
+
+        <div class="block block-create">
+          <h3 class="block-title">创建房间：</h3>
+          <button id="create-room-btn" type="button">创建随机房号</button>
+          <a class="room-no-link"></a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelector("#join-btn").addEventListener(
+        "click",
+        function () {
+          var roomNumber = document.querySelector("#join-room-number").value;
+          window.location.href = "/room?no=" + roomNumber;
+        },
+        false
+      );
+
+      document.querySelector("#create-room-btn").addEventListener(
+        "click",
+        function () {
+          var randomNo = Math.round(Math.random() * 1000000);
+          var text = "您的房间号是：" + randomNo;
+          var link = document.querySelector(".room-no-link");
+          link.innerHTML = text;
+          link.setAttribute("href", "/room?no=" + randomNo);
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
